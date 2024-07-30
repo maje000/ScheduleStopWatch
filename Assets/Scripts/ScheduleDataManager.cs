@@ -169,14 +169,16 @@ public class ScheduleDataManager : MonoBehaviour
 
             Debug.Log(json);
 
-            File.WriteAllText(Application.persistentDataPath + "/saveData.json", json);
+            File.WriteAllText(SAVE_HISTORY_DATA_PATH, json);
         }
     }
 
     [ContextMenu("LoadTest")]
     public void LoadFromJson()
     {
-        string json = File.ReadAllText(Application.persistentDataPath + "/saveData.json");
+        if (!File.Exists(SAVE_HISTORY_DATA_PATH)) return;
+
+        string json = File.ReadAllText(SAVE_HISTORY_DATA_PATH);
 
         if (!String.IsNullOrWhiteSpace(json))
         {
@@ -200,11 +202,11 @@ public class ScheduleDataManager : MonoBehaviour
                 startHour_cache = _startTime.Hour,
                 startMinute_cache = _startTime.Minute});
             
-            File.WriteAllText(Application.persistentDataPath + "/state_cache.json", json);
+            File.WriteAllText(SAVE_STATE_DATA_PATH, json);
         }
         else
         {
-            File.WriteAllText(Application.persistentDataPath + "/state_cache.json", "");
+            File.WriteAllText(SAVE_STATE_DATA_PATH, "");
         }
     }
 
