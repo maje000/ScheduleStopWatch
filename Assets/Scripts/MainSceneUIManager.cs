@@ -9,6 +9,14 @@ public class MainSceneUIManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+        if (exitButton != null)
+        {
+            exitButton.onClick.RemoveAllListeners();
+            exitButton.onClick.AddListener(() =>
+            {
+                Application.Quit();
+            });
+        }
     }
 
     public enum TargetUI
@@ -19,6 +27,7 @@ public class MainSceneUIManager : MonoBehaviour
 
     [SerializeField] Button showHistoryButton;
     [SerializeField] Button closeHistoryButton;
+    [SerializeField] Button exitButton;
 
     public static void SetFunction(TargetUI targetUI, UnityAction action)
     {
