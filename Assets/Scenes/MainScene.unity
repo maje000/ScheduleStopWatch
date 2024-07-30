@@ -188,7 +188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showHistoryButton: {fileID: 520559481}
   closeHistoryButton: {fileID: 1190393172}
-  exitButton: {fileID: 0}
+  exitButton: {fileID: 1247892012}
 --- !u!1 &520559479
 GameObject:
   m_ObjectHideFlags: 0
