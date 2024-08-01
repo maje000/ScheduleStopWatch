@@ -16,15 +16,41 @@ public class HistoryPanelManager : MonoBehaviour
 
     public void ShowHistoryPanel()
     {
+        // 객체 활성화
         targetGob.SetActive(true);
+
+        // 모든 리스트 출력
+        //PrintAllHistory();
+        DateTime currentTime = DateTime.Now;
+        PrintHistory(currentTime.Year, currentTime.Month, currentTime.Day);
+    }
+
+    private void PrintAllHistory()
+    {
         IEnumerator<ScheduleDataManager.ScheduleData> enumerator = ScheduleDataManager.GetData;
         while (enumerator.MoveNext())
         {
             ScheduleDataManager.ScheduleData scheduleData = enumerator.Current;
             string content = scheduleData.scheduleContent;
-            string startTime = String.Format("{0}:{1}",scheduleData.startHour, scheduleData.startMinute);
-            string endTime = String.Format("{0}:{1}",scheduleData.endHour, scheduleData.endMinute);
+            string startTime = String.Format("{0}:{1}", scheduleData.startHour, scheduleData.startMinute);
+            string endTime = String.Format("{0}:{1}", scheduleData.endHour, scheduleData.endMinute);
             verticalListController.AddItem(content, startTime, endTime);
+        }
+    }
+
+    private void PrintHistory(int year, int month, int day)
+    {
+        IEnumerator<ScheduleDataManager.ScheduleData> enumerator = ScheduleDataManager.GetData;
+        while (enumerator.MoveNext())
+        {
+            ScheduleDataManager.ScheduleData scheduleData = enumerator.Current;
+            if (scheduleData.startYear == year && scheduleData.startMonth == month && scheduleData.startDay == day)
+            {
+                string content = scheduleData.scheduleContent;
+                string startTime = String.Format("{0}:{1}", scheduleData.startHour, scheduleData.startMinute);
+                string endTime = String.Format("{0}:{1}", scheduleData.endHour, scheduleData.endMinute);
+                verticalListController.AddItem(content, startTime, endTime);
+            }
         }
     }
 
