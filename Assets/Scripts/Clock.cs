@@ -28,7 +28,7 @@ public class Clock : MonoBehaviour
             UpdateTime(now);
             
             OnUpdateEvent();
-            Debug.Log(DateTime.Now);
+            //Debug.Log(DateTime.Now);
         }
     }
 
