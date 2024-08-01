@@ -5,8 +5,14 @@ using UnityEngine;
 
 public class HistoryPanelManager : MonoBehaviour
 {
+    private const string displayDayTextFormat = "{0:D4}  {1:D2}/{2:D2}";
+    private const string displayStartEndTimeTextFormat = "{0:D2}:{1:D2}";
+
     [SerializeField] GameObject targetGob;
     [SerializeField] VerticalListController verticalListController;
+    [SerializeField] TMPro.TextMeshProUGUI displayCurrentDayText;
+
+
 
     DateTime currentDisplayDay;
 
@@ -70,14 +76,15 @@ public class HistoryPanelManager : MonoBehaviour
         {
             ScheduleDataManager.ScheduleData scheduleData = enumerator.Current;
             string content = scheduleData.scheduleContent;
-            string startTime = String.Format("{0}:{1}", scheduleData.startHour, scheduleData.startMinute);
-            string endTime = String.Format("{0}:{1}", scheduleData.endHour, scheduleData.endMinute);
+            string startTime = string.Format(displayStartEndTimeTextFormat, scheduleData.startHour, scheduleData.startMinute);
+            string endTime = string.Format(displayStartEndTimeTextFormat, scheduleData.endHour, scheduleData.endMinute);
             verticalListController.AddItem(content, startTime, endTime);
         }
     }
 
     private void PrintHistory(int year, int month, int day)
     {
+        displayCurrentDayText.text = string.Format(displayDayTextFormat, year, month, day);
         IEnumerator<ScheduleDataManager.ScheduleData> enumerator = ScheduleDataManager.GetData;
         while (enumerator.MoveNext())
         {
@@ -85,8 +92,8 @@ public class HistoryPanelManager : MonoBehaviour
             if (scheduleData.startYear == year && scheduleData.startMonth == month && scheduleData.startDay == day)
             {
                 string content = scheduleData.scheduleContent;
-                string startTime = String.Format("{0}:{1}", scheduleData.startHour, scheduleData.startMinute);
-                string endTime = String.Format("{0}:{1}", scheduleData.endHour, scheduleData.endMinute);
+                string startTime = string.Format(displayStartEndTimeTextFormat, scheduleData.startHour, scheduleData.startMinute);
+                string endTime = string.Format(displayStartEndTimeTextFormat, scheduleData.endHour, scheduleData.endMinute);
                 verticalListController.AddItem(content, startTime, endTime);
             }
         }
