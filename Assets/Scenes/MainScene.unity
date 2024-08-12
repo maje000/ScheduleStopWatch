@@ -193,6 +193,8 @@ MonoBehaviour:
   preDayButton: {fileID: 1151725097}
   nextDayButton: {fileID: 2016085868}
   currentButton: {fileID: 1307764964}
+  startButton: {fileID: 1548473227}
+  endButton: {fileID: 1720637885}
   buttons:
   - {fileID: 520559481}
   - {fileID: 1190393172}
@@ -200,6 +202,8 @@ MonoBehaviour:
   - {fileID: 1151725097}
   - {fileID: 2016085868}
   - {fileID: 1307764964}
+  - {fileID: 1548473227}
+  - {fileID: 1720637885}
 --- !u!1 &520559479
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,7 +516,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &775617860
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1354,8 +1358,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.00036621094}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.00048828125}
+  m_SizeDelta: {x: 0, y: -1574.4}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1274703122
 MonoBehaviour:
@@ -2236,7 +2240,7 @@ GameObject:
   - component: {fileID: 1548473228}
   - component: {fileID: 1548473227}
   m_Layer: 5
-  m_Name: ScheduleStartButton
+  m_Name: StartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2917,7 +2921,7 @@ GameObject:
   - component: {fileID: 1720637886}
   - component: {fileID: 1720637885}
   m_Layer: 5
-  m_Name: ScheduleEndButton
+  m_Name: EndButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
