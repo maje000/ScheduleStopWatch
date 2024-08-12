@@ -88,7 +88,20 @@ public class CalendarPanelManager : MonoBehaviour
         int.TryParse(_yearText.text, out int year);
         int.TryParse(_monthText.text, out int month);
 
-        DisplayMonth(year, --month);
+        month--;
+
+        if (month > 12)
+        {
+            year++;
+            month = 1;
+        }
+        else if (month < 1)
+        {
+            year--;
+            month = 12;
+        }
+
+        DisplayMonth(year, month);
     }
 
     //[ContextMenu("DisplayNextMonth")]
@@ -97,6 +110,20 @@ public class CalendarPanelManager : MonoBehaviour
         int.TryParse(_yearText.text, out int year);
         int.TryParse(_monthText.text, out int month);
 
-        DisplayMonth(year, ++month);
+        month++;
+
+        if (month > 12)
+        {
+            year++;
+            month = 1;
+        }
+        else if (month < 1)
+        {
+            year--;
+            month = 12;
+
+        }
+
+        DisplayMonth(year, month);
     }
 }
