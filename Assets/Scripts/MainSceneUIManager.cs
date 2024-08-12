@@ -7,10 +7,19 @@ public class MainSceneUIManager : MonoBehaviour
 {
     static MainSceneUIManager instance;
 
+    HistoryPanelManager historyPanelManager;
+    CalendarPanelManager calendarPanelManager;
+
+    [SerializeField] List<Button> buttons;
+    [SerializeField] MonoBehaviour[] managers;
+
     void Awake()
     {
         instance = this;
         SetFunction(TargetUI.ExitButton, () => Application.Quit());
+
+        historyPanelManager = GetComponent<HistoryPanelManager>();
+        calendarPanelManager = GetComponent<CalendarPanelManager>();
         //if (exitButton != null)
         //{
         //    exitButton.onClick.RemoveAllListeners();
@@ -35,6 +44,15 @@ public class MainSceneUIManager : MonoBehaviour
         SleepButton, // 추침 버튼
         DoJobButton, // 일 시작 버튼
         TakeFoodButton, // 식사 시작 버튼
+        PreMonthButton, // 이전 달 버튼 in CalendarPanel
+        NextMonthButton, // 다음 달 버튼 in CalendarPanel
+        CloseCalendarButton, // CalendarPanel 종료 버튼
+    }
+
+    public enum TargetManager
+    {
+        HistoryPanelManager,
+        CalendarPanelManager,
     }
 
     //[SerializeField] Button showHistoryButton;
@@ -46,7 +64,6 @@ public class MainSceneUIManager : MonoBehaviour
     //[SerializeField] Button startButton;
     //[SerializeField] Button endButton;
 
-    [SerializeField] List<Button> buttons;
 
     public static void SetFunction(TargetUI targetUI, UnityAction action)
     {
@@ -69,5 +86,18 @@ public class MainSceneUIManager : MonoBehaviour
                 button.onClick.AddListener(action);
             }
         }
+    }
+
+    public static Component GetManager(TargetManager targetManager)
+    {
+        foreach(MonoBehaviour manager in instance.managers)
+        {
+            if (targetManager.ToString() == manager.GetType().ToString())
+            {
+                return manager;
+            }
+        }
+
+        return null;
     }
 }

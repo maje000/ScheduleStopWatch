@@ -12,8 +12,6 @@ public class HistoryPanelManager : MonoBehaviour
     [SerializeField] VerticalListController verticalListController;
     [SerializeField] TMPro.TextMeshProUGUI displayCurrentDayText;
 
-
-
     DateTime currentDisplayDay;
 
     void Start()
@@ -49,6 +47,9 @@ public class HistoryPanelManager : MonoBehaviour
         // 추후 달력을 보여주면서 원하는 날짜를 선택하게끔
         // 달력 UI를 나타나게 하는 기능을 추가하고 그 UI에서 따로 기능을 구현하는게 맞을까?
         Debug.Log("CurrentDayButtonFucntion:: 미구현 기능");
+
+        CalendarPanelManager cpManager = MainSceneUIManager.GetManager(MainSceneUIManager.TargetManager.CalendarPanelManager) as CalendarPanelManager;
+        cpManager.OpenPanel();
     }
 
     private void PreDayButtonFunction()
