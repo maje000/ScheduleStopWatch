@@ -4,6 +4,11 @@ using UnityEngine.UI;
 
 public class StopWatchStateMachine : MonoBehaviour
 {
+    const string ON_WAKE = "기상";
+    const string ON_SLEEP = "취침";
+    const string DO_JOB = "일";
+    const string TAKE_FOOD = "식사";
+
     ScheduleDataManager sdManager;
 
     [SerializeField] Button startButton;
@@ -17,8 +22,6 @@ public class StopWatchStateMachine : MonoBehaviour
         OnSchedule = 1,
     }
 
-    StopWatchState currentState = StopWatchState.None;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -26,8 +29,12 @@ public class StopWatchStateMachine : MonoBehaviour
 
         sdManager = GetComponent<ScheduleDataManager>();
 
-        MainSceneUIManager.SetFunction(MainSceneUIManager.TargetUI.StartButton, OnStartButton);
-        MainSceneUIManager.SetFunction(MainSceneUIManager.TargetUI.EndButton, OnEndButton);
+        MainSceneUIManager.SetFunction(MainSceneUIManager.TargetUI.StartButton, OnStartSchedule);
+        MainSceneUIManager.SetFunction(MainSceneUIManager.TargetUI.EndButton, EndSchedule);
+        MainSceneUIManager.SetFunction(MainSceneUIManager.TargetUI.WakeButton, () => sdManager.AddScehdule(ON_WAKE));
+        MainSceneUIManager.SetFunction(MainSceneUIManager.TargetUI.SleepButton, () => sdManager.AddScehdule(ON_SLEEP));
+        MainSceneUIManager.SetFunction(MainSceneUIManager.TargetUI.DoJobButton, () => OnStartSchedule(DO_JOB));
+        MainSceneUIManager.SetFunction(MainSceneUIManager.TargetUI.TakeFoodButton, () => OnStartSchedule(TAKE_FOOD));
 
         // 최초 초기화
         if (sdManager.IsOnSchedule)
@@ -41,7 +48,10 @@ public class StopWatchStateMachine : MonoBehaviour
         }
     }
 
-    private void OnStartButton()
+    /// <summary>
+    /// 입력한 스케쥴을 시작
+    /// </summary>
+    private void OnStartSchedule()
     {
         // 일정 내용이 공란일 경우 에러를 보내거나 되돌림
         if (String.IsNullOrEmpty(inputField.text)) return;
@@ -53,7 +63,19 @@ public class StopWatchStateMachine : MonoBehaviour
         ChangeState(StopWatchState.OnSchedule);
     }
 
-    private void OnEndButton()
+    /// <summary>
+    /// 스케쥴 내용을 입력하며 시작
+    /// </summary>
+    /// <param name="scheduleContent"></param>
+    private void OnStartSchedule(string scheduleContent)
+    {
+        inputField.text = scheduleContent;
+
+        sdManager.StartSchedule(scheduleContent);
+        ChangeState(StopWatchState.OnSchedule);
+    }
+
+    private void EndSchedule()
     {
         // 데이터 기록
         sdManager.EndSchedule();
@@ -94,7 +116,5 @@ public class StopWatchStateMachine : MonoBehaviour
             // 일정 내용을 수정 못하게 막기
             inputField.interactable = false;
         }
-
-        currentState = state;
     }
 }

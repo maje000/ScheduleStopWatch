@@ -31,6 +31,10 @@ public class MainSceneUIManager : MonoBehaviour
         CurrentDayButton, // 현재 날 표시 버튼 in HistoryPanbel
         StartButton, // 스케쥴 시작 버튼
         EndButton, // 스케쥴 종료 버튼
+        WakeButton, // 기상 버튼
+        SleepButton, // 추침 버튼
+        DoJobButton, // 일 시작 버튼
+        TakeFoodButton, // 식사 시작 버튼
     }
 
     //[SerializeField] Button showHistoryButton;
