@@ -18,6 +18,18 @@ public class ScheduleDataManager : MonoBehaviour
     [System.Serializable]
     public struct ScheduleData
     {
+        public ScheduleData(string scheduleContent)
+        {
+            this.scheduleContent = scheduleContent;
+            DateTime currentTime = DateTime.Now;
+
+            startYear = endYear = currentTime.Year;
+            startMonth = endMonth = currentTime.Month;
+            startDay = endDay = currentTime.Day;
+            startHour = endHour = currentTime.Hour;
+            startMinute = endMinute = currentTime.Minute;
+        }
+
         public string scheduleContent;
 
         //public DateTime startTime;
@@ -124,6 +136,13 @@ public class ScheduleDataManager : MonoBehaviour
         // 현재 상태 변경
         _isOnSchedule = false;
         SaveEnvironmentState();
+    }
+
+    public void AddScehdule(string scheduleContent)
+    {
+        ScheduleData data = new ScheduleData(scheduleContent);
+        _data.Add(data);
+        SaveToJson();
     }
 
     public static IEnumerator<ScheduleData> GetData

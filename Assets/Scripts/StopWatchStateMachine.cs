@@ -26,34 +26,8 @@ public class StopWatchStateMachine : MonoBehaviour
 
         sdManager = GetComponent<ScheduleDataManager>();
 
-        if (startButton != null)
-        {
-            startButton.onClick.AddListener(() =>
-            {
-                if (currentState != StopWatchState.OnSchedule)
-                {
-                    // 일정 내용이 공란일 경우 에러를 보내거나 되돌림
-                    if (String.IsNullOrEmpty(inputField.text)) return;
-
-                    // 데이터 기록
-                    sdManager.StartSchedule(inputField.text);
-
-                    // 버튼 상태 변화
-                    ChangeState(StopWatchState.OnSchedule);
-                }
-            });
-        }
-        if (endButton != null)
-        {
-            endButton.onClick.AddListener(() =>
-            {
-                // 데이터 기록
-                sdManager.EndSchedule();
-
-                // 버튼 상태 변화
-                ChangeState(StopWatchState.BeforeStartSchedule);
-            });
-        }
+        MainSceneUIManager.SetFunction(MainSceneUIManager.TargetUI.StartButton, OnStartButton);
+        MainSceneUIManager.SetFunction(MainSceneUIManager.TargetUI.EndButton, OnEndButton);
 
         // 최초 초기화
         if (sdManager.IsOnSchedule)
@@ -67,7 +41,28 @@ public class StopWatchStateMachine : MonoBehaviour
         }
     }
 
-    public void ChangeState(StopWatchState state)
+    private void OnStartButton()
+    {
+        // 일정 내용이 공란일 경우 에러를 보내거나 되돌림
+        if (String.IsNullOrEmpty(inputField.text)) return;
+
+        // 데이터 기록
+        sdManager.StartSchedule(inputField.text);
+
+        // 버튼 상태 변화
+        ChangeState(StopWatchState.OnSchedule);
+    }
+
+    private void OnEndButton()
+    {
+        // 데이터 기록
+        sdManager.EndSchedule();
+
+        // 버튼 상태 변화
+        ChangeState(StopWatchState.BeforeStartSchedule);
+    }
+
+    private void ChangeState(StopWatchState state)
     {
         // 일정이 시작 전 대기 상태
         if (state == StopWatchState.BeforeStartSchedule)

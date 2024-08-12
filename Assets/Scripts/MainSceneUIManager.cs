@@ -23,20 +23,24 @@ public class MainSceneUIManager : MonoBehaviour
 
     public enum TargetUI
     {
-        ShowHistoryButton,
-        CloseHistoryButton,
-        ExitButton,
-        PreDayButton,
-        NextDayButton,
-        CurrentDayButton,
+        ShowHistoryButton, // HistoryPanel 여는 버튼
+        CloseHistoryButton, // HistoryPanel종료 버튼
+        ExitButton, // 종료 버튼
+        PreDayButton, // 이전 날 버튼 in HistoryPanel
+        NextDayButton, // 다음 날 버튼 in HistoryPanel
+        CurrentDayButton, // 현재 날 표시 버튼 in HistoryPanbel
+        StartButton, // 스케쥴 시작 버튼
+        EndButton, // 스케쥴 종료 버튼
     }
 
-    [SerializeField] Button showHistoryButton;
-    [SerializeField] Button closeHistoryButton;
-    [SerializeField] Button exitButton;
-    [SerializeField] Button preDayButton;
-    [SerializeField] Button nextDayButton;
-    [SerializeField] Button currentButton;
+    //[SerializeField] Button showHistoryButton;
+    //[SerializeField] Button closeHistoryButton;
+    //[SerializeField] Button exitButton;
+    //[SerializeField] Button preDayButton;
+    //[SerializeField] Button nextDayButton;
+    //[SerializeField] Button currentButton;
+    //[SerializeField] Button startButton;
+    //[SerializeField] Button endButton;
 
     [SerializeField] List<Button> buttons;
 
