@@ -34,19 +34,27 @@ public class HistoryPanelManager : MonoBehaviour
         DateTime currentTime = DateTime.Now;
         currentDisplayDay = currentTime;
         PrintHistory(currentDisplayDay);
-    
     }
+
     public void CloseHistoryPanel()
     {
         targetGob.SetActive(false);
         verticalListController.RemoveAllItem();
     }
 
+    public void UpdateHistoryPanel(int year, int month, int day)
+    {
+        currentDisplayDay = new DateTime(year, month, day);
+
+        verticalListController.RemoveAllItem();
+        PrintHistory(currentDisplayDay);
+    }
+
     private void CurrentDayButtonFunction()
     {
         // 추후 달력을 보여주면서 원하는 날짜를 선택하게끔
         // 달력 UI를 나타나게 하는 기능을 추가하고 그 UI에서 따로 기능을 구현하는게 맞을까?
-        Debug.Log("CurrentDayButtonFucntion:: 미구현 기능");
+        // Debug.Log("CurrentDayButtonFucntion:: 미구현 기능");
 
         CalendarPanelManager cpManager = MainSceneUIManager.GetManager(MainSceneUIManager.TargetManager.CalendarPanelManager) as CalendarPanelManager;
         cpManager.OpenPanel();
@@ -57,7 +65,6 @@ public class HistoryPanelManager : MonoBehaviour
         // 현재 보여주고 있는 날의 전날을 보여줌
         currentDisplayDay = currentDisplayDay.AddDays(-1);
 
-
         verticalListController.RemoveAllItem();
         PrintHistory(currentDisplayDay);
     }
@@ -66,6 +73,7 @@ public class HistoryPanelManager : MonoBehaviour
     {
         // 현재 보여주고 있는 날의 다음 날을 보여줌
         currentDisplayDay = currentDisplayDay.AddDays(1);
+
         verticalListController.RemoveAllItem();
         PrintHistory(currentDisplayDay);
     }

@@ -26,6 +26,12 @@ public class CalendarPanelManager : MonoBehaviour
         MainSceneUIManager.SetFunction(MainSceneUIManager.TargetUI.PreMonthButton, DisplayPreMonth);
         MainSceneUIManager.SetFunction(MainSceneUIManager.TargetUI.NextMonthButton, DisplayNextMonth);
         MainSceneUIManager.SetFunction(MainSceneUIManager.TargetUI.CloseCalendarButton, () => targetGob.SetActive(false));
+
+        foreach(Button dayButton in _days)
+        {
+            dayButton.onClick.RemoveAllListeners();
+            dayButton.onClick.AddListener(() => OnDayButtonClick(dayButton));
+        }
         //_preMonthButton.onClick.AddListener(DisplayPreMonth);
         //_nextMonthButton.onClick.AddListener(DisplayNextMonth);
         //_closeCalendarButton.onClick.AddListener(() => targetGob.SetActive(false));
@@ -125,5 +131,17 @@ public class CalendarPanelManager : MonoBehaviour
         }
 
         DisplayMonth(year, month);
+    }
+
+    private void OnDayButtonClick(Button dayButton)
+    {
+        int.TryParse(_yearText.text, out int year);
+        int.TryParse(_monthText.text, out int month);
+        int.TryParse(dayButton.GetComponentInChildren<TextMeshProUGUI>().text,out int day);
+
+        HistoryPanelManager hpManager = MainSceneUIManager.GetManager(MainSceneUIManager.TargetManager.HistoryPanelManager) as HistoryPanelManager;
+        hpManager.UpdateHistoryPanel(year, month, day);
+
+        targetGob.SetActive(false);
     }
 }
