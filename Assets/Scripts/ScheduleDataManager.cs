@@ -30,6 +30,18 @@ public class ScheduleDataManager : MonoBehaviour
             startMinute = endMinute = currentTime.Minute;
         }
 
+        public int duration
+        {
+            get
+            {
+                DateTime endTime = new DateTime(endYear, endMonth, endDay, endHour, endMinute, 0);
+                DateTime startTime = new DateTime(startYear, startMonth, startDay, startHour, startMinute, 0);
+
+                TimeSpan durationTime = endTime - startTime;
+                return durationTime.Minutes;
+            }
+        }
+
         public string scheduleContent;
 
         //public DateTime startTime;
@@ -151,6 +163,23 @@ public class ScheduleDataManager : MonoBehaviour
         {
             return instance._data.GetEnumerator();
         }
+    }
+
+    public static float GetPercentageUsedTimeInDay(int year, int month, int day)
+    {
+        int totalMinute = 0;
+
+        foreach (ScheduleData scheduleData in instance._data)
+        {
+            if (year == scheduleData.startYear &&
+                month == scheduleData.startMonth &&
+                day == scheduleData.startDay)
+            {
+                totalMinute += scheduleData.duration;
+            }
+        }
+
+        return totalMinute / (24 * 60f);
     }
 
     [ContextMenu("Show All Date data")]

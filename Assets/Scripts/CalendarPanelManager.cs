@@ -68,6 +68,9 @@ public class CalendarPanelManager : MonoBehaviour
             {
                 day.GetComponentInChildren<TextMeshProUGUI>().text = string.Format(DAY_DISPAY_FORMAT, 0);
                 day.GetComponent<Image>().color = Color.clear;
+                Image image = day.transform.GetChild(1).GetComponent<Image>();
+                image.fillAmount = 0f;
+
                 day.interactable = false;
                 startWeek--;
             }
@@ -76,12 +79,18 @@ public class CalendarPanelManager : MonoBehaviour
             {
                 day.GetComponentInChildren<TextMeshProUGUI>().text = string.Format(DAY_DISPAY_FORMAT, 0);
                 day.GetComponent<Image>().color = Color.clear;
+                Image image = day.transform.GetChild(1).GetComponent<Image>();
+                image.fillAmount = 0f;
+
                 day.interactable = false;
             }
             else
             {
                 day.GetComponentInChildren<TextMeshProUGUI>().text = string.Format(DAY_DISPAY_FORMAT, dayCount);
                 day.GetComponent<Image>().color = Color.white;
+                Image image = day.transform.GetChild(1).GetComponent<Image>();
+                image.fillAmount = ScheduleDataManager.GetPercentageUsedTimeInDay(year, month, dayCount);
+
                 day.interactable = true;
                 dayCount++;
             }
